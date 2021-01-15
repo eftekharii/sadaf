@@ -10,10 +10,9 @@ CREATE TABLE  `sadaf`.`AccountSpecs` (
   `UserID` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   `UserPassword` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `PersonID` int(11) DEFAULT NULL,
-  `Status` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `StartDate` date,
-  PRIMARY KEY (`AccountSpecID`),
-  FOREIGN KEY (`PersonID`)  references persons(PersonID) on delete cascade
+  'Status' varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  'StartDate' date,
+  PRIMARY KEY (`AccountSpecID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 DROP TABLE IF EXISTS `sadaf`.`EMonArray`;
