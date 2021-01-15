@@ -35,22 +35,26 @@ $message = "";
                         چارچوب توسعه نرم افزار سدف
                     </div>
                     <div class="caption", style="float: left">
-                        ثبت نام
+                        اعتبارسنجی ایمیل < ثبت نام
                     </div>
                 </div>
                 <div class="portlet-body">
                     <table class="table">
                         <tr>
-                            <td>نام کاربری</td>
-                            <td><input type=text name=UserID id=UserID class="form-control"></td>
+                            <td>رمز عبور یکبار مصرف</td>
+                            <td><input type=number name=UserOTP id=UserOTP class="form-control"></td>
                         </tr>
                         <tr>
-                            <td>ایمیل</td>
-                            <td><input type=text name=UserEmail id=UserEmail class="form-control"></td>
+                            <td>کلمه رمز</td>
+                            <td><input type=text name=UserPassword id=UserPassword class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>تکرار کلمه رمز</td>
+                            <td><input type=text name=UserPasswordRepeat id=UserPasswordRepeat class="form-control"></td>
                         </tr>
                         <tr>
                             <td colspan=2 align=center>
-                                <button type="submit" class="btn btn-primary active">اعتبارسنجی از طریق ایمیل</button>
+                                <button type="submit" class="btn btn-primary active">ثبت نام</button>
                             </td>
                         </tr>
                     </table>
