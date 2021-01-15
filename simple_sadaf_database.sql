@@ -7,11 +7,12 @@ use sadaf;
 DROP TABLE IF EXISTS `sadaf`.`AccountSpecs`;
 CREATE TABLE  `sadaf`.`AccountSpecs` (
   `AccountSpecID` int(11) NOT NULL AUTO_INCREMENT,
-  `UserID` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
-  `UserPassword` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `PersonID` int(11) DEFAULT NULL,
-  'Status' varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  'StartDate' date,
+  `UserID` varchar(100) CHARACTER SET latin1 NOT NULL UNIQUE ,
+  `UserPassword` varchar(100) CHARACTER SET utf8 NOT NULL ,
+  `UserEmail` varchar(100) CHARACTER SET utf8 DEFAULT NULL UNIQUE ,
+  `PersonID` int(11) NOT NULL,
+  `Status` varchar(30) CHARACTER SET utf8 DEFAULT null,
+  `StartDate` date,
   PRIMARY KEY (`AccountSpecID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
