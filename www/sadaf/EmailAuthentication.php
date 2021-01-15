@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 
 <?php
@@ -27,6 +31,7 @@ if(isset($_REQUEST["submit"]))
     }
 }
 
+function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data ) .')'.'</script>';}
 
 function send_email($email_address){
 

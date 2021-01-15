@@ -1,3 +1,8 @@
+
+<?php
+session_start();
+?>
+
 <!doctype html>
 
 <?php
@@ -86,10 +91,8 @@ if(isset($_REQUEST["submit"]))
             $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"], $email));
         }
 
-        session_start();
         $_SESSION["UserID"] = $username;
         $_SESSION["UserEmail"] = $email;
-
 
         echo "<script>document.location='EmailAuthentication.php';</script>";
         send_email($email);
@@ -115,6 +118,8 @@ function send_email($email_address){
     mail($to, $subject, $txt);
 }
 ?>
+
+function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data ) .')'.'</script>';}
 
 <body>
 <form method=post>
