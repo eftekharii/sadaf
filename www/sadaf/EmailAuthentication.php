@@ -21,7 +21,6 @@ if(isset($_REQUEST["UserEmail"]))
         echo "<script>document.location='EmailAuthentication.php';</script>";
         die();
     }
-
 }
 
 ?>
@@ -56,20 +55,18 @@ if(isset($_REQUEST["UserEmail"]))
                 <div class="portlet-body">
                     <table class="table">
                         <tr>
-                            <td>رمز عبور یکبار مصرف</td>
-                            <td><input type=number name=UserOTP id=UserOTP class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td>کلمه رمز</td>
-                            <td><input type=text name=UserPassword id=UserPassword class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td>تکرار کلمه رمز</td>
-                            <td><input type=text name=UserPasswordRepeat id=UserPasswordRepeat class="form-control"></td>
+                            <td>رمز عبور یکبارمصرف</td>
+                            <td><input type=text name=UserOTP id=UserOTP class="form-control"></td>
                         </tr>
                         <tr>
                             <td colspan=2 align=center>
                                 <button type="submit" class="btn btn-primary active">ثبت نام</button>
+                            </td>
+
+                            <td>
+                                <a href="" onclick=<?php
+                                //TODO
+                                ?>>ارسال مجدد به ایمیل</a>
                             </td>
                         </tr>
                     </table>
