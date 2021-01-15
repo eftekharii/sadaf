@@ -46,8 +46,23 @@ if(isset($_REQUEST["submit"]))
         $validation = false;
     }
 
+//    $mysql->Prepare("Select UserID,UserEmail from sadaf.AccountSpecs
+//						    where UserID = ? OR UserEmail = ?");
+//    $res = $mysql->ExecuteStatement(array($username,$email));
 
-
+//    if($trec = $res->fetch())
+//    {
+//        if($trec['UserEmail'] == $email){
+//            $message_array[4] = "این نام آدرس ایمیل قبلا ثبت شده است";
+//            $validation = false;
+//
+//        }
+//
+//        if($trec['UserID'] == $username){
+//            $message_array[5] = "این نام کاربری قبلا ثبت شده است";
+//            $validation = false;
+//        }
+//    }
     if($validation){
 
         $mysql = pdodb::getInstance();
@@ -71,6 +86,7 @@ if(isset($_REQUEST["submit"]))
 
         echo "<script>document.location='EmailAuthentication.php';</script>";
         die();
+//        send_email($email);
         //TODO: Related works to email process
 
     }
@@ -92,9 +108,6 @@ function send_email($email_address){
 
     mail($to, $subject, $txt);
 }
-
-send_email($email);
-
 ?>
 
 <body>
