@@ -1,41 +1,50 @@
 <!doctype html>
 
 <?php
+include "sys_config.class.php";
+require_once "DateUtils.inc.php";
+require_once "SharedClass.class.php";
+require_once "UI.inc.php";
 
 HTMLBegin();
 
 $message = "";
+$username = $_SESSION["UserID"];
+$email = $_SESSION["UserEmail"];
+$OTP = $_SESSION["OTP"];
 
-if(isset($_REQUEST["UserEmail"]))
+if(isset($_REQUEST["submit"]))
 {
-    $email = $_REQUEST["UserEmail"];
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message = "فرمت ایمیل نادرست است";
+    $userOTP = $_REQUEST["UserOTP"];
+
+    if ($userOTP != $OTP) {
+        $message = "رمز عبور یکبارمصرف درست نمی باشد. لطفا مجدد تلاش کنید.";
     }
 
     else{
-        echo "<script>document.location='EmailAuthentication.php';</script>";
+        echo "<script>document.location='login.php';</script>";
         die();
     }
 }
 
-//function send_email($email_address){
-//
-//    $OTP = md5(openssl_random_pseudo_bytes(10));
-//
-//    echo "<script>console.log('Debug Objects: " . $OTP . "' );</script>";
-//
-//    $to = $email_address;
-//    $subject = "کد فعال سازی سیستم سدف";
-//    $txt = "سلام کاربر گرامی. کد فعال سازی برای ورود به سیستم". $OTP ."می باشد.";
-//
-//    mail($to, $subject, $txt);
-//}
-//
-//if(isset($_REQUEST["resend"]))
-//{
-//    send_email($email);
-//}
+
+function send_email($email_address){
+
+    $OTP = md5(openssl_random_pseudo_bytes(10));
+
+    echo "<script>console.log('Debug Objects: " . $OTP . "' );</script>";
+
+    $to = $email_address;
+    $subject = "کد فعال سازی سیستم سدف";
+    $txt = "سلام کاربر گرامی. کد فعال سازی برای ورود به سیستم". $OTP ."می باشد.";
+
+    mail($to, $subject, $txt);
+}
+
+if(isset($_REQUEST["resend"]))
+{
+    send_email($email);
+}
 
 ?>
 
@@ -74,12 +83,12 @@ if(isset($_REQUEST["UserEmail"]))
                         </tr>
                         <tr>
                             <td colspan=2 align=center>
-                                <button type="submit" class="btn btn-primary active">ثبت نام</button>
+                                <button name="submit" type="submit" class="btn btn-primary active">ثبت نام</button>
                             </td>
 
                             <td>
                                 <a name="resend" onclick=<?php
-                                //TODO
+                                //TODO: fix the front view
                                 ?>>ارسال مجدد به ایمیل</a>
                             </td>
                         </tr>

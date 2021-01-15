@@ -16,6 +16,7 @@ $email = "";
 $pfname = "";
 $plname = "";
 $validation = true;
+$OTP = null;
 
 if(isset($_REQUEST["submit"]))
 {
@@ -85,6 +86,11 @@ if(isset($_REQUEST["submit"]))
             $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"], $email));
         }
 
+        session_start();
+        $_SESSION["UserID"] = $username;
+        $_SESSION["UserEmail"] = $email;
+
+
         echo "<script>document.location='EmailAuthentication.php';</script>";
         send_email($email);
         die();
@@ -98,6 +104,7 @@ function erase_val(&$myarr) {
 function send_email($email_address){
 
     $OTP = md5(openssl_random_pseudo_bytes(10));
+    $_SESSION["OTP"] = $OTP;
 
     echo "<script>console.log('Debug Objects: " . $OTP . "' );</script>";
 
