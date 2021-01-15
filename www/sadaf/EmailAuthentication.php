@@ -9,6 +9,21 @@ require_once "UI.inc.php";
 HTMLBegin();
 
 $message = "";
+
+if(isset($_REQUEST["UserEmail"]))
+{
+    $email = $_REQUEST["UserEmail"];
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = "فرمت ایمیل نادرست است";
+    }
+
+    else{
+        echo "<script>document.location='EmailAuthentication.php';</script>";
+        die();
+    }
+
+}
+
 ?>
 
 <body >

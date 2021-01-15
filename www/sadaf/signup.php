@@ -2,13 +2,32 @@
 
 <?php
 include "sys_config.class.php";
-require_once "DateUtils.inc.php";
-require_once "SharedClass.class.php";
+//require_once "DateUtils.inc.php";
+//require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
 HTMLBegin();
 
 $message = "";
+
+if(isset($_REQUEST["UserEmail"]))
+{
+    $email = $_REQUEST["UserEmail"];
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = "فرمت ایمیل نادرست است";
+    }
+
+    elseif (!preg_match('/^[a-zA-Z0-9]{4,}$/', $_REQUEST["UserID"])){
+        $message = "نام کاربری باید شامل حداقل 4 حرف انگلیسی و عدد باشد";
+    }
+
+    else{
+        echo "<script>document.location='EmailAuthentication.php';</script>";
+        die();
+    }
+
+}
+
 ?>
 
 <body >
