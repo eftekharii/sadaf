@@ -1,0 +1,65 @@
+<!doctype html>
+
+<?php
+include "sys_config.class.php";
+require_once "DateUtils.inc.php";
+require_once "SharedClass.class.php";
+require_once "UI.inc.php";
+
+HTMLBegin();
+
+$message = "";
+?>
+
+<body >
+<form method=post>
+
+    <div class="container-fluid">
+        <? if($message!="") { ?>
+        <div class="row">
+            <div class="col-1" ></div>
+            <div class="col-10" >
+                <div class="alert alert-danger well" role="alert"><?php echo $message; ?></div>
+            </div>
+            <div class="col-1" ></div>
+        </div>
+    </div>
+    <? } ?>
+    <div class="row">
+        <div class="col-3" ></div>
+        <div class="col-6" >
+            <br>
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        چارچوب توسعه نرم افزار سدف
+                    </div>
+                    <div class="caption", style="float: left">
+                        Sign up
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table">
+                        <tr>
+                            <td>نام کاربری</td>
+                            <td><input type=text name=UserID id=UserID class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>ایمیل</td>
+                            <td><input type=text name=UserEmail id=UserEmail class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td colspan=2 align=center>
+                                <button type="submit" class="btn btn-primary active">ثبت نام</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-3" ></div>
+        </div>
+
+</form>
+</div>
+</body>
