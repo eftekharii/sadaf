@@ -11,7 +11,7 @@ CREATE TABLE  `sadaf`.`AccountSpecs` (
   `UserPassword` varchar(100) CHARACTER SET utf8 NOT NULL ,
   `UserEmail` varchar(100) CHARACTER SET utf8 DEFAULT NULL UNIQUE ,
   `PersonID` int(11) NOT NULL,
-  `Status` varchar(30) CHARACTER SET utf8 DEFAULT null,
+  `Status` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
   `StartDate` date,
   PRIMARY KEY (`AccountSpecID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;

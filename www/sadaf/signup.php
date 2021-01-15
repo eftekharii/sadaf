@@ -46,23 +46,24 @@ if(isset($_REQUEST["submit"]))
         $validation = false;
     }
 
-//    $mysql->Prepare("Select UserID,UserEmail from sadaf.AccountSpecs
-//						    where UserID = ? OR UserEmail = ?");
-//    $res = $mysql->ExecuteStatement(array($username,$email));
+    $mysql = pdodb::getInstance();
+    $mysql->Prepare("Select UserID,UserEmail from sadaf.AccountSpecs
+						    where UserID = ? OR UserEmail = ?");
+    $res = $mysql->ExecuteStatement(array($username,$email));
 
-//    if($trec = $res->fetch())
-//    {
-//        if($trec['UserEmail'] == $email){
-//            $message_array[4] = "این نام آدرس ایمیل قبلا ثبت شده است";
-//            $validation = false;
-//
-//        }
-//
-//        if($trec['UserID'] == $username){
-//            $message_array[5] = "این نام کاربری قبلا ثبت شده است";
-//            $validation = false;
-//        }
-//    }
+    if($trec = $res->fetch())
+    {
+        if($trec['UserEmail'] == $email){
+            $message_array[4] = "این آدرس ایمیل قبلا ثبت شده است";
+            $validation = false;
+
+        }
+
+        if($trec['UserID'] == $username){
+            $message_array[5] = "این نام کاربری قبلا ثبت شده است";
+            $validation = false;
+        }
+    }
     if($validation){
 
         $mysql = pdodb::getInstance();
@@ -80,15 +81,13 @@ if(isset($_REQUEST["submit"]))
             $password_hashed = md5($password);
 
             $mysql->Prepare("Insert into sadaf.AccountSpecs
-						    (UserID, UserPassword, PersonID, Status) values (?, ?, ?, 'InProgress')");
-            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"]));
+						    (UserID, UserPassword, PersonID, UserEmail, Status) values (?, ?, ?, ?, 'InProgress')");
+            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"], $email));
         }
 
         echo "<script>document.location='EmailAuthentication.php';</script>";
+        send_email($email);
         die();
-//        send_email($email);
-        //TODO: Related works to email process
-
     }
 }
 

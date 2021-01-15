@@ -1,10 +1,6 @@
 <!doctype html>
 
 <?php
-include "sys_config.class.php";
-require_once "DateUtils.inc.php";
-require_once "SharedClass.class.php";
-require_once "UI.inc.php";
 
 HTMLBegin();
 
@@ -22,6 +18,24 @@ if(isset($_REQUEST["UserEmail"]))
         die();
     }
 }
+
+//function send_email($email_address){
+//
+//    $OTP = md5(openssl_random_pseudo_bytes(10));
+//
+//    echo "<script>console.log('Debug Objects: " . $OTP . "' );</script>";
+//
+//    $to = $email_address;
+//    $subject = "کد فعال سازی سیستم سدف";
+//    $txt = "سلام کاربر گرامی. کد فعال سازی برای ورود به سیستم". $OTP ."می باشد.";
+//
+//    mail($to, $subject, $txt);
+//}
+//
+//if(isset($_REQUEST["resend"]))
+//{
+//    send_email($email);
+//}
 
 ?>
 
@@ -64,7 +78,7 @@ if(isset($_REQUEST["UserEmail"]))
                             </td>
 
                             <td>
-                                <a href="" onclick=<?php
+                                <a name="resend" onclick=<?php
                                 //TODO
                                 ?>>ارسال مجدد به ایمیل</a>
                             </td>
