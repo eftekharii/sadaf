@@ -2,8 +2,8 @@
 
 <?php
 include "sys_config.class.php";
-//require_once "DateUtils.inc.php";
-//require_once "SharedClass.class.php";
+require_once "DateUtils.inc.php";
+require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
 HTMLBegin();
@@ -23,6 +23,7 @@ if(isset($_REQUEST["UserEmail"]))
 
     else{
         echo "<script>document.location='EmailAuthentication.php';</script>";
+        //TODO: Related works to email process
         die();
     }
 
