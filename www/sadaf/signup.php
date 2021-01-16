@@ -38,7 +38,7 @@ if(isset($_REQUEST["submit"]))
     }
 
     if (!preg_match('/^[a-zA-Z0-9]{4,}$/', $username)){
-        $message_array[1] = "نام کاربری باید شامل حداقل 4 حرف انگلیسی و عدد باشد";
+        $message_array[1] = "نام کاربری باید شامل حداقل 4 کاراکتر باشد";
         $validation = false;
     }
 
@@ -119,8 +119,6 @@ function send_email($email_address){
 }
 ?>
 
-function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data ) .')'.'</script>';}
-
 <body>
 <form method=post>
 
@@ -172,13 +170,13 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
                         </tr>
                         <tr>
                             <td>کلمه رمز</td>
-                            <td><input type=text name=UserPassword id=UserPassword class="form-control" value=<?php
+                            <td><input type=password name=UserPassword id=UserPassword class="form-control" value=<?php
                                 echo $password;
                                 ?>></td>
                         </tr>
                         <tr>
                             <td>تکرار کلمه رمز</td>
-                            <td><input type=text name=UserPasswordRepeat id=UserPasswordRepeat class="form-control" value=<?php
+                            <td><input type=password name=UserPasswordRepeat id=UserPasswordRepeat class="form-control" value=<?php
                                 echo $password_repeat;
                                 ?>></td>
                         </tr>
