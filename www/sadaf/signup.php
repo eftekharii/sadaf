@@ -98,16 +98,10 @@ if(isset($_REQUEST["submit"]))
 
         $_SESSION["UserID"] = $username;
         $_SESSION["UserEmail"] = $email;
-<<<<<<< Updated upstream
 
-//        echo "<script>document.location='EmailAuthentication.php';</script>";
-//        send_email($email);
-=======
-        console_log(md5("omid3000"));
-//        echo "<script>document.location='EmailAuthentication.php';</script>";
+        echo "<script>document.location='EmailAuthentication.php';</script>";
         send_email($email);
->>>>>>> Stashed changes
-//        die();
+        die();
     }
 }
 
@@ -119,14 +113,9 @@ function send_email($email_address){
 
     $OTP = rand (1000000 , 9999999);
     $_SESSION["OTP"] = $OTP;
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
     $to = $email_address;
     $subject = "Sadaf system activation code";
-    $txt = ". کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد". "\n\n".$OTP ;
+    $txt = "کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد.". "\n\n".$OTP ;
     mail($to, $subject, $txt);
 
 }
