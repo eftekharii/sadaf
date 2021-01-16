@@ -86,17 +86,21 @@ if(isset($_REQUEST["submit"]))
         {
             $password_hashed = md5($password);
 
+            date_default_timezone_set("Asia/Tehran");
+            $date = date('Y/m/d h:i:s', time());
+
             $mysql->Prepare("Insert into sadaf.AccountSpecs
-						    (UserID, UserPassword, PersonID, UserEmail, Status) values (?, ?, ?, ?, 'InProgress')");
-            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"], $email));
+						    (UserID, UserPassword, PersonID, UserEmail, StartDate, Status) values (?, ?, ?, ?, ?, 'InProgress')");
+            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"], $email, $date));
+
         }
 
         $_SESSION["UserID"] = $username;
         $_SESSION["UserEmail"] = $email;
 
-        echo "<script>document.location='EmailAuthentication.php';</script>";
-        send_email($email);
-        die();
+//        echo "<script>document.location='EmailAuthentication.php';</script>";
+//        send_email($email);
+//        die();
     }
 }
 
@@ -109,14 +113,17 @@ function send_email($email_address){
     $OTP = md5(openssl_random_pseudo_bytes(10));
     $_SESSION["OTP"] = $OTP;
 
-    echo "<script>console.log('Debug Objects: " . $OTP . "' );</script>";
 
     $to = $email_address;
     $subject = "کد فعال سازی سیستم سدف";
     $txt = "سلام کاربر گرامی. کد فعال سازی برای ورود به سیستم". $OTP ."می باشد.";
 
     mail($to, $subject, $txt);
+
 }
+
+function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data ) .')'.'</script>';}
+
 ?>
 
 <body>
