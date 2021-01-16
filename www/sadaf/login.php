@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <!-- Programmer: Omid MilaniFard -->
 <?php
@@ -7,6 +11,8 @@
 	require_once "UI.inc.php";
 	
 	HTMLBegin();
+	$username = $_SESSION["UserID"];
+    $_SESSION["UserID"] = null;
 
 	$message = "";
 	if(isset($_REQUEST["UserID"]))
@@ -18,7 +24,7 @@
 		$mysql->Prepare("select * from sadaf.AccountSpecs 
 											JOIN sadaf.persons using (PersonID) 
 											where UserID=? and UserPassword=?");
-		$res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], $_REQUEST["UserPassword"]));
+		$res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], md5($_REQUEST["UserPassword"])));
 		
 		if($trec = $res->fetch())
 		{
@@ -67,7 +73,8 @@
 			<table class="table">
 				<tr>
 					<td>نام کاربری</td>			
-				<td><input type=text name=UserID id=UserID class="form-control"></td>
+				<td><input type=text name=UserID id=UserID class="form-control" value=<?php echo $_SESSION["UserID"];
+                    $_SESSION["UserID"] = null; ?>></td>
 				</tr>
 				<tr>
 					<td>کلمه رمز</td>			

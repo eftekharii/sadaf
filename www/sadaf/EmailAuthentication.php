@@ -16,7 +16,7 @@ $message = "";
 $username = $_SESSION["UserID"];
 $email = $_SESSION["UserEmail"];
 $OTP = $_SESSION["OTP"];
-
+$mysql = pdodb::getInstance();
 if(isset($_REQUEST["submit"]))
 {
     $userOTP = $_REQUEST["UserOTP"];
@@ -26,6 +26,12 @@ if(isset($_REQUEST["submit"]))
     }
 
     else{
+
+        $mysql->Prepare("UPDATE sadaf.AccountSpecs
+                            SET Status = 'Enable'
+                            WHERE UserID = ? ;");
+        $res = $mysql->ExecuteStatement(array($username));
+
         echo "<script>document.location='login.php';</script>";
         die();
     }
@@ -35,14 +41,11 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 
 function send_email($email_address){
 
-    $OTP = md5(openssl_random_pseudo_bytes(10));
-
-    echo "<script>console.log('Debug Objects: " . $OTP . "' );</script>";
-
+    $OTP = rand (1000000 , 9999999);
+    $_SESSION["OTP"] = $OTP;
     $to = $email_address;
-    $subject = "کد فعال سازی سیستم سدف";
-    $txt = "سلام کاربر گرامی. کد فعال سازی برای ورود به سیستم". $OTP ."می باشد.";
-
+    $subject = "Sadaf system activation code";
+    $txt = ". کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد". "\n\n".$OTP ;
     mail($to, $subject, $txt);
 }
 

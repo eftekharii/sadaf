@@ -116,7 +116,7 @@ INSERT INTO sadaf.SpecialPages VALUES (1,'main.php'),(2,'/main.php'),(3,'/Menu.p
 
 insert into sadaf.persons (pfname, plname, CardNumber) values ('اميد', 'ميلاني فرد', '0');
 
-insert into sadaf.AccountSpecs (UserID, UserPassword, PersonID) values ('omid', 'omid3000', 1);
+insert into sadaf.AccountSpecs (UserID, UserPassword, PersonID) values ('omid', '24e55aa5f1ef63746d8825d98c22df8d', 1); /* omid3000 md5 hashed*/
 
 INSERT INTO sadaf.SystemFacilityGroups VALUES (1,'مدیریت',1),(2,'عملیات کاری',3),(3,'گزارشات',4);
 
