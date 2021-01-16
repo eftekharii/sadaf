@@ -19,7 +19,10 @@ $OTP = $_SESSION["OTP"];
 $mysql = pdodb::getInstance();
 if(isset($_REQUEST["submit"]))
 {
+    $OTP = $_SESSION["OTP"];
+    console_log($OTP);
     $userOTP = $_REQUEST["UserOTP"];
+    console_log($userOTP);
 
     if ($userOTP != $OTP) {
         $message = "رمز عبور یکبارمصرف درست نمی باشد. لطفا مجدد تلاش کنید.";
@@ -48,12 +51,6 @@ function send_email($email_address){
     $txt = "کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد.". "\n\n".$OTP ;
     mail($to, $subject, $txt);
 }
-
-if(isset($_REQUEST["resend"]))
-{
-    send_email($email);
-}
-
 ?>
 
 <body >
@@ -95,9 +92,7 @@ if(isset($_REQUEST["resend"]))
                             </td>
 
                             <td>
-                                <a name="resend" onclick=<?php
-                                //TODO: fix the front view
-                                ?>>ارسال مجدد به ایمیل</a>
+                                <a href="" name="resend" onclick=<?php send_email($email); ?>>ارسال مجدد به ایمیل</a>
                             </td>
                         </tr>
                     </table>
