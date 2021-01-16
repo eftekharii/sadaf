@@ -45,7 +45,7 @@ function send_email($email_address){
     $_SESSION["OTP"] = $OTP;
     $to = $email_address;
     $subject = "Sadaf system activation code";
-    $txt = ". کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد". "\n\n".$OTP ;
+    $txt = "کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد.". "\n\n".$OTP ;
     mail($to, $subject, $txt);
 }
 
