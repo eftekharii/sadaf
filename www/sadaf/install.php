@@ -15,18 +15,34 @@ $DBIP = "";
 if(isset($_REQUEST["submit"])){
     $mysqlConfigPath = '../shares/MySql.config.php';
     $ConfigClassPath = '../shares/config.class.php';
+    $htaccessPath = '../.htaccess' ;
     $wwwroot = $_REQUEST["Userwwwroot"];
     $username = $_REQUEST["Username"];
     $DBIP = $_REQUEST["Userip"];
     $password = $_REQUEST["UserPassword"];
     writeToMySqlConfig($mysqlConfigPath,$password,$username,$DBIP);
     replace_config($username,$password,$DBIP,$ConfigClassPath);
+    writeTohtaccess($htaccessPath,$wwwroot);
     execDB();
+    header("Location: signup.php");
+    //if you uncomment below file will be deleted uncomment just in the final commmit
+    //unlink(__FILE__);
 }
 function execDB(){
     $mysql = pdodb::getInstance("","","","sys","");
     $sql = file_get_contents('../../simple_sadaf_database.sql');
     $mysql->Execute($sql);
+}
+function writeTohtaccess($htaccessPath='../.htaccess' ,$wwwroot){
+    $htfile = fopen($htaccessPath,'w');
+    fwrite($htfile,'php_value include_path  ".;'.$wwwroot.'\www\shares;'.$wwwroot.'\www\adodb"'.PHP_EOL);
+    fwrite($htfile,'php_value short_open_tag "On"'.PHP_EOL);
+    fwrite($htfile,'php_value error_reporting "On"'.PHP_EOL);
+    fwrite($htfile,'php_value display_errors "On"'.PHP_EOL);
+    fwrite($htfile,'php_value default_charset   "utf-8"'.PHP_EOL);
+    fwrite($htfile,'php_value session.save_handler  "files"'.PHP_EOL);
+    fwrite($htfile,'php_value session.gc_maxlifetime  "1800"'.PHP_EOL);
+    fclose($htfile);
 }
 function writeToMySqlConfig($mysqlConfigPath='../shares/MySql.config.php',$password,$username,$DBIP){
     $str=file_get_contents($mysqlConfigPath);
@@ -89,7 +105,7 @@ function replace_config($username, $password, $DBIP, $configPath = '../shares/co
                         </tr>
                         <tr>
                             <td>آدرس wwwroot</td>
-                            <td><input type=text id=wwwroot name=Userwwwroot class="form-control"></td>
+                            <td><input type=text id=wwwroot name=Userwwwroot class="form-control" placeholder="like : D:\Programfiles\wamp\www\sadaf"></td>
                         </tr>
                         <tr>
                             <td colspan=2 align=center>
