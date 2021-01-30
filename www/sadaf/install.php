@@ -5,8 +5,9 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
+//testing push push push
 HTMLBegin();
-$wwwroot = "k";
+$wwwroot = "";
 $message_array = [];
 ?>
 <body >
