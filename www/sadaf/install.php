@@ -5,7 +5,6 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
-//kir khar
 HTMLBegin();
 
 $wwwroot = "";
@@ -22,6 +21,14 @@ if(isset($_REQUEST["submit"])){
     $password = $_REQUEST["UserPassword"];
     writeToMySqlConfig($mysqlConfigPath,$password,$username,$DBIP);
     replace_config($username,$password,$DBIP,$ConfigClassPath);
+    execDB();
+}
+function execDB(){
+    $mysql = pdodb::getInstance();
+    $sql = "create database 'sadaf' char set utf8 collate utf8_persian_ci";
+    $mysql->Execute($sql);
+    $sql = file_get_contents('../../simple_sadaf_database.sql');
+    $mysql->Execute($sql);
 }
 function writeToMySqlConfig($mysqlConfigPath='../shares/MySql.config.php',$password,$username,$DBIP){
     $str=file_get_contents($mysqlConfigPath);
