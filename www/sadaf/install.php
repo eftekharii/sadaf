@@ -6,7 +6,7 @@ require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
 HTMLBegin();
-$wwwroot = "";
+$wwwroot = "kir";
 $message_array = [];
 ?>
 <body >
