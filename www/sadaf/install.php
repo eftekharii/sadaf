@@ -7,8 +7,37 @@ require_once "UI.inc.php";
 
 //kir khar
 HTMLBegin();
+
 $wwwroot = "";
 $message_array = [];
+$username = "";
+$password = "";
+$DBIP = "";
+if(isset($_REQUEST["submit"])){
+    $mysqlConfigPath = '../shares/MySql.config.php';
+    $ConfigClassPath = '../shares/config.class.php';
+    $wwwroot = $_REQUEST["Userwwwroot"];
+    $username = $_REQUEST["Username"];
+    $DBIP = $_REQUEST["Userip"];
+    $password = $_REQUEST["UserPassword"];
+    writeToMySqlConfig($mysqlConfigPath,$password,$username,$DBIP);
+    replace_config($username,$password,$DBIP,$ConfigClassPath);
+}
+function writeToMySqlConfig($mysqlConfigPath='../shares/MySql.config.php',$password,$username,$DBIP){
+    $str=file_get_contents($mysqlConfigPath);
+    $str=preg_replace('/localhost/', $DBIP,$str);
+    $str=preg_replace('/user1/',$username,$str,1);
+    $str=preg_replace('/user1/',$password,$str,1);
+    file_put_contents($mysqlConfigPath, $str);
+}
+function replace_config($username, $password, $DBIP, $configPath = '../shares/config.class.php')
+{
+    $str = file_get_contents($configPath);
+    $str=preg_replace('/localhost/', $DBIP,$str);
+    $str=preg_replace('/user1/',$username,$str,1);
+    $str=preg_replace('/user1/',$password,$str,1);
+    file_put_contents($configPath, $str);
+}
 ?>
 <body >
 <form method=post>
@@ -59,7 +88,7 @@ $message_array = [];
                         </tr>
                         <tr>
                             <td colspan=2 align=center>
-                                <button type="submit" class="btn btn-primary active">نصب</button>
+                                <button type="submit" class="btn btn-primary active" name="submit">نصب</button>
                             </td>
                         </tr>
                     </table>
