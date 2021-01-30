@@ -24,9 +24,7 @@ if(isset($_REQUEST["submit"])){
     execDB();
 }
 function execDB(){
-    $mysql = pdodb::getInstance();
-    $sql = "create database 'sadaf' char set utf8 collate utf8_persian_ci";
-    $mysql->Execute($sql);
+    $mysql = pdodb::getInstance("","","","sys","");
     $sql = file_get_contents('../../simple_sadaf_database.sql');
     $mysql->Execute($sql);
 }
