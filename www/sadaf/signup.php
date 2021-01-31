@@ -32,6 +32,7 @@ $username = "";
 $password = "";
 $password_repeat = "";
 $email = "";
+$cardNo = "";
 $pfname = "";
 $plname = "";
 $validation = true;
@@ -46,6 +47,7 @@ if(isset($_REQUEST["submit"]))
     $email = $_REQUEST["UserEmail"];
     $pfname = $_REQUEST["pfname"];
     $plname = $_REQUEST["plname"];
+    $cardNo = $_REQUEST["UserCardNo"];
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message_array[0] = "فرمت ایمیل نادرست است";
@@ -89,8 +91,8 @@ if(isset($_REQUEST["submit"]))
         $mysql = pdodb::getInstance();
 
         $mysql->Prepare("Insert into sadaf.Persons
-						    (pfname, plname) values (?, ?)");
-        $res = $mysql->ExecuteStatement(array($pfname, $plname));
+						    (pfname, plname, CardNumber) values (?, ?, ?)");
+        $res = $mysql->ExecuteStatement(array($pfname, $plname, $cardNo));
 
         $mysql->Prepare("Select PersonID from sadaf.Persons
 						    where pfname=? and plname=?");
@@ -187,8 +189,14 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
                                 ?>></td>
                         </tr>
                         <tr>
+                            <td>شماره کارت</td>
+                            <td><input type=text name=UserCardNo id=UserCardNo class="form-control" value=<?php
+                                echo $cardNo;
+                                ?>></td>
+                        </tr>
+                        <tr>
                             <td>کلمه رمز</td>
-                            <td><input type=password name=UserPassword id=UserPassword class="form-control" value=<?php
+                            <td><input type=password name=UserPassword id=UserPassword class="form-control" placeholder="حداقل 8 کاراکتر شامل عدد و حروف بزرگ و کوچک انگليسی" <?php
                                 echo $password;
                                 ?>></td>
                         </tr>
