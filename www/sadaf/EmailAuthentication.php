@@ -92,7 +92,11 @@ function send_email($email_address){
                             </td>
 
                             <td>
-                                <a href="" name="resend" onclick=<?php send_email($email); ?>>ارسال مجدد به ایمیل</a>
+                                <a href=""  onclick=<?php
+                                if(isset($_REQUEST["resend"]))
+                                {
+                                    send_email($email);
+                                }?>>ارسال مجدد به ایمیل</a>
                             </td>
                         </tr>
                     </table>
