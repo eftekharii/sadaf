@@ -77,18 +77,6 @@ if (isset($_REQUEST["UpdateID"])) {
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <td width="1%" nowrap>
-                           وضعیت
-                        </td>
-                        <td nowrap>
-                            <select name="Item_Status" id="Item_Status">
-                                <option value=0>-
-                                    <? echo SharedClass::CreateAdvanceRelatedTableSelectOptions("sadaf.accountspecs", "UserID", "userstatus", "Status as userstatus, UserID"); ?>
-                            </select>
-                        </td>
-
-                    </tr>
                 </table>
             </td>
         </tr>
