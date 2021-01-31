@@ -7,6 +7,7 @@ session_start();
 
 <?php
 include "sys_config.class.php";
+
 require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
@@ -18,7 +19,7 @@ $res = $mysql->Execute($query);
 if($rec=$res->Fetch())
 {
     if($rec['Status'] == 0){
-        echo "صفحه نمیاد";
+        include "forbidden_sign_up.html";
         die();
     }
     else{
