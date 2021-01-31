@@ -11,7 +11,20 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
-HTMLBegin();
+
+$mysql = pdodb::getInstance();
+$query = "select Status from sadaf.ManageStatus where FacilityStatusID = 1;";
+$res = $mysql->Execute($query);
+if($rec=$res->Fetch())
+{
+    if($rec['Status'] == 0){
+        echo "صفحه نمیاد";
+        die();
+    }
+    else{
+        HTMLBegin();
+    }
+}
 
 $message_array = [];
 $username = "";
@@ -53,7 +66,6 @@ if(isset($_REQUEST["submit"]))
         $validation = false;
     }
 
-    $mysql = pdodb::getInstance();
     $mysql->Prepare("Select UserID,UserEmail from sadaf.AccountSpecs
 						    where UserID = ? OR UserEmail = ?");
     $res = $mysql->ExecuteStatement(array($username,$email));
