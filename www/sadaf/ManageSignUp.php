@@ -6,7 +6,7 @@ $mysql = pdodb::getInstance();
 $current_status = null;
 $other_status = null;
 if (isset($_REQUEST["Save"])) {
-    if (isset($_REQUEST["Item_FacilityStatusID"])){
+    if (isset($_REQUEST["Item_FacilityStatus"])){
         $Item_FacilityStatus = $_REQUEST["Item_FacilityStatus"];
 
         $mysql->Prepare("UPDATE sadaf.ManageStatus
@@ -17,11 +17,13 @@ if (isset($_REQUEST["Save"])) {
     echo SharedClass::CreateMessageBox("اطلاعات ذخیره شد");
 }
 
-function loadStatus($mysql, $current_status,$other_status){
+function loadStatus($mysql){
+    $current_status = null;
+    $other_status = null;
     $query = "select Status from sadaf.ManageStatus where FacilityStatusID = 1;";
     $res = $mysql->Execute($query);
 
-    if($rec=$res->FetchRow())
+    if($rec=$res->Fetch())
     {
         if($rec == 0){
             $current_status =  "غیرفعال";
@@ -37,7 +39,6 @@ function loadStatus($mysql, $current_status,$other_status){
     return array($current_status ,$other_status);
 }
 
-$status = loadStatus($mysql, $current_status,$other_status);
 ?>
 <form method="post" id="f1" name="f1">
 
@@ -55,9 +56,9 @@ $status = loadStatus($mysql, $current_status,$other_status);
                            وضعیت ثبت نام
                         </td>
                         <td nowrap>
-                            <select name="Item_FacilityStatus" id="Item_FacilityStatus">
-                                <option value="1"><? $status[0]?></option>
-                                <option value="0"><? $status[1]?></option>
+                            <select name="Item_FacilityStatus" id="Item_FacilityStatus" onload="<? $status = loadStatus($mysql); ?>">
+                                <option value="1"><? echo $status[0]?></option>
+                                <option value="0"><? echo $status[1]?></option>
                             </select>
                         </td>
                     </tr>
@@ -77,21 +78,7 @@ $status = loadStatus($mysql, $current_status,$other_status);
     function ValidateForm() {
         document.f1.submit();
     }
-</script>
-<?php
-$res = manage_AccountSpecs::GetList();
-$SomeItemsRemoved = false;
-for ($k = 0; $k < count($res); $k++) {
-    if (isset($_REQUEST["ch_" . $res[$k]->AccountSpecID])) {
-        manage_AccountSpecs::Remove($res[$k]->AccountSpecID);
-        $SomeItemsRemoved = true;
-    }
-}
-if ($SomeItemsRemoved)
-    $res = manage_AccountSpecs::GetList();
-?>
 
-<script>
     function ConfirmDelete() {
         if (confirm('آیا مطمین هستید؟')) document.ListForm.submit();
     }
