@@ -26,7 +26,7 @@ if(isset($_REQUEST["submit"])){
     execDB();
     header("Location: signup.php");
     //if you uncomment below file will be deleted uncomment just in the final commmit
-    //unlink(__FILE__);
+    unlink(__FILE__);
 }
 function execDB(){
     $mysql = pdodb::getInstance("","","","sys","");
