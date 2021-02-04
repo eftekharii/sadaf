@@ -7,9 +7,12 @@ use sadaf;
 DROP TABLE IF EXISTS `sadaf`.`AccountSpecs`;
 CREATE TABLE  `sadaf`.`AccountSpecs` (
   `AccountSpecID` int(11) NOT NULL AUTO_INCREMENT,
-  `UserID` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
-  `UserPassword` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `PersonID` int(11) DEFAULT NULL,
+  `UserID` varchar(100) CHARACTER SET latin1 NOT NULL UNIQUE ,
+  `UserPassword` varchar(100) CHARACTER SET utf8 NOT NULL ,
+  `UserEmail` varchar(100) CHARACTER SET utf8 DEFAULT NULL UNIQUE ,
+  `PersonID` int(11) NOT NULL,
+  `Status` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `StartDate` TIMESTAMP ,
   PRIMARY KEY (`AccountSpecID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
@@ -108,25 +111,33 @@ CREATE TABLE  `sadaf`.`UserFacilities` (
   PRIMARY KEY (`FacilityPageID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
+CREATE TABLE  `sadaf`.`ManageStatus` (
+  `FacilityStatusID` int(11) NOT NULL AUTO_INCREMENT,
+  `FacilityName` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`FacilityStatusID`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
 INSERT INTO sadaf.SpecialPages VALUES (1,'main.php'),(2,'/main.php'),(3,'/Menu.php'),(4,'/MainContent.php'),(5,'/ChangePassword.php'),(6,'/MyActions.php'),(7,'/SelectPersonel.php'),(8,'/SelectCustomer.php'),(9,'/SelectStaff.php'),(10,'/GetExamItemPrice.php');
 
 
 insert into sadaf.persons (pfname, plname, CardNumber) values ('اميد', 'ميلاني فرد', '0');
 
-insert into sadaf.AccountSpecs (UserID, UserPassword, PersonID) values ('omid', 'omid3000', 1);
+insert into sadaf.AccountSpecs (UserID, UserPassword, PersonID) values ('omid', '24e55aa5f1ef63746d8825d98c22df8d', 1); /* omid3000 md5 hashed*/
 
 INSERT INTO sadaf.SystemFacilityGroups VALUES (1,'مدیریت',1),(2,'عملیات کاری',3),(3,'گزارشات',4);
 
-INSERT INTO sadaf.SystemFacilities VALUES (1,'مدیریت افراد',1,3,'Managepersons.php'),(3,'مدیریت امکانات',1,2,'ManageSystemFacilities.php'),(4,'مدیریت گروه های منو',1,1,'ManageSystemFacilityGroups.php'),(5,'مدیریت کاربران',1,4,'ManageAccountSpecs.php');
+INSERT INTO sadaf.SystemFacilities VALUES (1,'مدیریت افراد',1,3,'Managepersons.php'),(3,'مدیریت امکانات',1,2,'ManageSystemFacilities.php'),(4,'مدیریت گروه های منو',1,1,'ManageSystemFacilityGroups.php'),(5,'مدیریت کاربران',1,4,'ManageAccountSpecs.php'),(6,'وضعیت ثبت نام',1,5,'ManageSignUp.php');
 
-INSERT INTO sadaf.UserFacilities VALUES (1,'omid',1),(2,'omid',3),(3,'omid',4),(4,'omid',5);
+INSERT INTO sadaf.UserFacilities VALUES (1,'omid',1),(2,'omid',3),(3,'omid',4),(4,'omid',5),(12,'omid',6);
 
 INSERT INTO sadaf.EMonArray VALUES (1,31),(2,28),(3,31),(4,30),(5,31),(6,30),(7,31),(8,31),(9,30),(10,31),(11,30),(12,31);
 
 INSERT INTO sadaf.FMonArray VALUES (1,31),(2,31),(3,31),(4,31),(5,31),(6,31),(7,30),(8,30),(9,30),(10,30),(11,30),(12,29);
 
-INSERT INTO sadaf.FacilityPages VALUES (9,5,'/ManageAccountSpecs.php'),(3,3,'/ManageSystemFacilities.php'),(4,3,'/ManageFacilityPages.php'),(5,3,'/ManageSystemFacilities.php'),(6,3,'/ManageUserFacilities.php'),(7,4,'/ManageSystemFacilityGroups.php'),(8,1,'/Managepersons.php'),(48,12,'/GetJasonData.php'),(25,5,'/ManageUserPermissions.php');
+INSERT INTO sadaf.FacilityPages VALUES (9,5,'/ManageAccountSpecs.php'),(3,3,'/ManageSystemFacilities.php'),(4,3,'/ManageFacilityPages.php'),(5,3,'/ManageSystemFacilities.php'),(6,3,'/ManageUserFacilities.php'),(7,4,'/ManageSystemFacilityGroups.php'),(8,1,'/Managepersons.php'),(48,12,'/GetJasonData.php'),(25,5,'/ManageUserPermissions.php'),(12,6,'/ManageSignUp.php');
 
+INSERT INTO sadaf.ManageStatus VALUES (1,'SignUp',1);
 DELIMITER $$
 
 DROP FUNCTION IF EXISTS `sadaf`.`g2j`$$
